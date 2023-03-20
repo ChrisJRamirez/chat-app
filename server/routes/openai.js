@@ -20,6 +20,9 @@ router.post("/text", async (req, res) => {
       frequency_penalty: 0.5,
       presence_penalty: 0,
     });
+
+    console.log("response data: ", response.data);
+
     await axios.post(
       `https://api.chatengine.io/chats/${activeChatId}/messages/`,
       { text: response.data.choices[0].text },
@@ -31,7 +34,7 @@ router.post("/text", async (req, res) => {
         }
       }
     )
-    res.status(200).json({ text })
+    res.status(200).json({ text: response.data.choices[0].text })
   }
   catch (error) {
     console.log("error", error)
